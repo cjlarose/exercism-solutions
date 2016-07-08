@@ -4,5 +4,5 @@ import qualified Data.Map as Map
 import Data.Char (toLower)
 
 transform :: Map.Map Int [String] -> Map.Map String Int
-transform = Map.fromList . concat . Map.elems . Map.mapWithKey transformLetters where
-  transformLetters p = map (\x -> (map toLower x, p))
+transform = Map.fromList . concatMap transformLetters . Map.toList where
+  transformLetters (p, letters) = zip (map (map toLower) letters) (repeat p)
