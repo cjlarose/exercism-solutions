@@ -14,9 +14,8 @@ resetName r = do
 robotName = readIORef
 
 randomRobotName :: RandomGen g => g -> (String, g)
-randomRobotName g = let (l1, g') = randomR ('A', 'Z') g
-                        (l2, g'') = randomR ('A', 'Z') g'
-                        (n1, g''') = randomR ('0', '9') g''
-                        (n2, g'''') = randomR ('0', '9') g'''
-                        (n3, g''''') = randomR ('0', '9') g'''' in
-                        ([l1, l2, n1, n2, n3], g''''')
+randomRobotName g = foldr f ([], g) pat
+  where
+    pat = [('A', 'Z'), ('A', 'Z'), ('0', '9'), ('0', '9'), ('0', '9')]
+    f r (res, gen) = let (x, gen') = randomR r gen in
+      (x : res, gen')
