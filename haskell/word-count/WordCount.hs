@@ -8,5 +8,4 @@ import Data.Char (toLower)
 extractWords = map (map toLower) . filter (not . null) . splitRegex (mkRegex "[^[:alnum:]]+")
 
 wordCount :: String -> Map.Map String Int
-wordCount = foldr f Map.empty . extractWords where
-  f word = Map.insertWith (+) word 1
+wordCount = Map.fromListWith (+) . map (\x -> (x, 1)) . extractWords
