@@ -1,14 +1,9 @@
 module RailFenceCipher (encode, decode) where
 
-import Data.List (init, sortOn, sort)
+import Data.List (sortOn, sort)
 
 encode :: Int -> [a] -> [a]
-encode n = map snd . sortOn fst . zip p
-  where
-    ii = [0..(n-1)]
-    p = cycle $ ii ++ reverse (drop 1 . init $ ii)
+encode n = map snd . sortOn fst . zip (cycle $ [0..(n-1)] ++ [n-2,n-3..1])
 
 decode :: Int -> String -> String
-decode n ciphertext = map snd . sort . zip (encode n [0..(l-1)]) $ ciphertext
-  where
-    l = length ciphertext
+decode n xs = map snd . sort . zip (encode n [0..(length xs-1)]) $ xs
