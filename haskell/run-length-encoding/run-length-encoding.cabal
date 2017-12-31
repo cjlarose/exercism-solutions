@@ -10,6 +10,7 @@ cabal-version:  >= 1.10
 library
   hs-source-dirs:
       src
+  ghc-options: -Wall
   build-depends:
       base
   exposed-modules:
@@ -23,6 +24,7 @@ test-suite test
   main-is: Tests.hs
   hs-source-dirs:
       test
+  ghc-options: -Wall
   build-depends:
       base
     , run-length-encoding

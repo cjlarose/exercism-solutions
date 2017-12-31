@@ -1,8 +1,7 @@
 module RunLength (decode, encode) where
 
 import Data.Char (isDigit)
-import Data.List (findIndex, splitAt, group, span)
-import Data.Maybe (fromJust)
+import Data.List (group, span)
 import Control.Arrow (first)
 
 decode :: String -> String
