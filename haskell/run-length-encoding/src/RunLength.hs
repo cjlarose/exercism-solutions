@@ -2,15 +2,13 @@ module RunLength (decode, encode) where
 
 import Data.Char (isDigit)
 import Data.List (group, span)
-import Control.Arrow (first)
 
 decode :: String -> String
 decode "" = ""
-decode encodedText = replicate len chunk ++ decode rest
-  where
-    (len, chunk:rest) = if isDigit (head encodedText)
-                        then first read $ span isDigit encodedText
-                        else (1, encodedText)
+decode encodedText@(h:t)
+  | isDigit h = chunk . span isDigit $ encodedText
+  | otherwise = h : decode t
+  where chunk (l,c:rest) = replicate (read l) c ++ decode rest
 
 encode :: String -> String
 encode = concatMap f . group
